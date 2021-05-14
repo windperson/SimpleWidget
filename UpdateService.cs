@@ -19,6 +19,7 @@ using Android.App;
 using Android.Appwidget;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Android.Widget;
 
 namespace SimpleWidget
@@ -26,6 +27,16 @@ namespace SimpleWidget
 	[Service]
 	public class UpdateService : Service
 	{
+        [return: GeneratedEnum]
+        public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
+        {
+#pragma warning disable CS0618 // Type or member is obsolete
+            OnStart(intent, startId);
+#pragma warning restore CS0618 // Type or member is obsolete
+            return StartCommandResult.Sticky;
+		}
+
+		[Obsolete("deprecated")]
 		public override void OnStart (Intent intent, int startId)
 		{
 			// Build the widget update for today
